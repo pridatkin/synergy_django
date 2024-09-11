@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from .models import News
+
 def index(request):
-	print(request)
-	return HttpResponse('<h1>Hello world!</h1>')
-	
+	news = News.objects.all()
+	res = '<h1>News list</h1>'
+	for i in news:
+		res += f'<div>\n<p>{i.title}</p>\n<p>{i.content}</p>\n</div>\n<hr>\n'
+	return HttpResponse(res)
